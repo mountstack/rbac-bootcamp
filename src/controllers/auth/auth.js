@@ -1,6 +1,7 @@
 const User = require('../../models/User');
 const ErrorHandler = require('../../utils/ErrorHandler');
 const jwt = require('jsonwebtoken');
+const Permission = require('../../models/role/Permission');
 
 // Utility function to validate email
 const isValidEmail = (email) => {
@@ -139,7 +140,14 @@ exports.signin = async (req, res, next) => {
         }
 
         // Find user and explicitly select password field
-        const user = await User.findOne({ email }).select('+password');
+        const user = await User.findOne({ email })
+                                .select('+password')
+                                .populate({
+                                    path: 'role',
+                                    populate: {
+                                        path: 'permissions'
+                                    }
+                                }); 
         if (!user) {
             return next(ErrorHandler.badRequest('Invalid email or password'));
         }
@@ -175,7 +183,7 @@ exports.signin = async (req, res, next) => {
         });
     } 
     catch (error) {
-        next(ErrorHandler.serverError('Error in signin'));
+        next(ErrorHandler.serverError(error.message));
     }
 };
 

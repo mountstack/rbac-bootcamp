@@ -7,7 +7,9 @@ const ErrorHandler = require('./utils/ErrorHandler');
 const errorMiddleware = require('./utils/errorMiddleware'); 
 
 // Import Routes
+const userRoutes = require('./routes/user'); 
 const authRoutes = require('./routes/auth'); 
+const roleRoutes = require('./routes/role'); 
 
 // Enable colors
 colors.enable();
@@ -23,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Mount Routes
+app.use('/api/user', userRoutes); 
 app.use('/api/auth', authRoutes); 
+app.use('/api/role', roleRoutes); 
 
 // Basic route
 app.get('/health', (req, res) => {
