@@ -10,6 +10,7 @@ const errorMiddleware = require('./utils/errorMiddleware');
 const userRoutes = require('./routes/user'); 
 const authRoutes = require('./routes/auth'); 
 const roleRoutes = require('./routes/role'); 
+const permissionRoutes = require('./routes/permission'); 
 
 // Enable colors
 colors.enable();
@@ -28,6 +29,7 @@ app.use(cors());
 app.use('/api/user', userRoutes); 
 app.use('/api/auth', authRoutes); 
 app.use('/api/role', roleRoutes); 
+app.use('/api/permission', permissionRoutes); 
 
 // Basic route
 app.get('/health', (req, res) => {

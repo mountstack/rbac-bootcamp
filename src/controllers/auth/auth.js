@@ -125,7 +125,7 @@ exports.signup = async (req, res, next) => {
     }
 };
 
-exports.signin = async (req, res, next) => {
+exports.signin = async (req, res, next) => { 
     try {
         const { email, password } = req.body;
 

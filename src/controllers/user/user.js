@@ -1,6 +1,5 @@
-const User = require('../../models/User')
+const User = require('../../models/User'); 
 
-// PATCH: Edit user property
 const assignRole = async (req, res) => { 
   const { id } = req.params; 
 
@@ -17,9 +16,22 @@ const assignRole = async (req, res) => {
   })
 } 
 
+const getAllUser = async (req, res) => { 
+  const users = await User
+                          .find({type: {$ne: 'BUSINESS-OWNER'}}).
+                          sort({createdAt: -1})
+                          .populate({
+                              path: 'role',
+                              populate: {
+                                  path: 'permissions'
+                              }
+                          }); 
+  res.json({
+    users
+  })
+} 
 
-// localhost:8000/user/2
-
-module.exports = {
-  assignRole
-}
+module.exports = { 
+  assignRole, 
+  getAllUser 
+} 

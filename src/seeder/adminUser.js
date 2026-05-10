@@ -34,6 +34,7 @@ const seedAdmin = async () => {
     try {
         // Check if business-owner already exists
         const existingAdmin = await User.findOne({ type: ADMIN_TYPE });
+        console.log({adminData});
         
         if (existingAdmin) { 
             process.exit(0);

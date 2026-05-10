@@ -8,6 +8,13 @@ const createRole = async (req, res) => {
   })
 } 
 
+const allRoles = async (req, res) => { 
+  res.json({ 
+    roles: await Role.find().sort({createdAt: -1}).populate('permissions') 
+  }) 
+} 
+
 module.exports = {
-  createRole
+  createRole, 
+  allRoles
 } 
